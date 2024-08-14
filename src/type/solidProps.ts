@@ -27,6 +27,7 @@ declare module 'solid-js' {
             'sh-text': SolidProps<ShadeTypoProps>
             'sh-title': SolidProps<ShadeTypoProps>
             'sh-small-text': SolidProps<ShadeTypoProps>
+            'sh-token': SolidProps<ShadeTypoProps>
             [Button]: SolidProps<ShadeButtonProps, HTMLButtonElement>
             [vert]: SolidProps<ShadeHovertProps>
             [horz]: SolidProps<ShadeHovertProps>

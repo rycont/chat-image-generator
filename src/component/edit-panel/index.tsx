@@ -1,3 +1,5 @@
+import ContentEditor from './content-editor'
+
 export default function EditPanel() {
-    return <sh-text data-fillx>Edit panel</sh-text>
+    return <ContentEditor />
 }

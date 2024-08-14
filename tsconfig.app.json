@@ -24,7 +24,10 @@
         "baseUrl": ".",
         "paths": {
             "@shade/*": ["src/shade-ui/*"],
-            "@component/*": ["src/component/*"]
+            "@component/*": ["src/component/*"],
+            "@storage/*": ["src/storage/*"],
+            "@type/*": ["src/type/*"],
+            "@/*": ["src/*"]
         }
     },
     "include": ["src"]

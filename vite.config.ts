@@ -9,6 +9,7 @@ export default defineConfig({
             '@shade': '/src/shade-ui',
             '@component': '/src/component',
             '@type': '/src/type',
+            '@storage': '/src/storage',
             '@': __dirname,
         },
     },
