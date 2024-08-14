@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>채팅 이미지 생성기</title>
+        <link rel="stylesheet" href="./reset-style.css" />
+        <link rel="stylesheet" href="./src/shade-ui/suit.css" />
+        <link rel="stylesheet" href="./src/shade-ui/dist/style.css" />
+        <style>
+            @font-face {
+                font-family: 'FallbackSans';
+                font-weight: 400;
+                src: local('Malgun Gothic');
+                size-adjust: 87.3%;
+            }
+
+            @font-face {
+                font-family: 'FallbackSans';
+                font-weight: 700;
+                src: local('Malgun Gothic Bold');
+                size-adjust: 92%;
+            }
+
+            :root {
+                font-size: 4px;
+            }
+
+            body {
+                margin: 0;
+                padding: 10rem;
+                font-size: 4rem;
+                font-family: 'SUIT', 'Pretendard', 'Pretendard Variable',
+                    'FallbackSans', 'BlinkMacSystemFont', system-ui, Roboto,
+                    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+                    'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
+                    'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+
+                background-color: var(--sh-color-l1);
+                height: 100vh;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+            }
+
+            #root {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 8rem;
+            }
+        </style>
+        <script
+            type="module"
+            src="./src/shade-ui/dist/elements/typo/index.js"
+        ></script>
+        <script
+            type="module"
+            src="./src/shade-ui/dist/elements/hovert/index.js"
+        ></script>
+        <script
+            type="module"
+            src="./src/shade-ui/dist/elements/button/index.js"
+        ></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/index.tsx"></script>
+    </body>
+</html>
