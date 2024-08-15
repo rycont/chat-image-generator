@@ -9,16 +9,27 @@ import getRandomIconAvatar from '../../service/avatar/get-random-icon-avatar'
 import createRandomName from '@service/speaker/create-random-name'
 import speaker from '@service/speaker'
 import { popAppearProgressiveStyle } from '@shade/theme.css'
+import { speakersSignal } from '@service/speaker/storage'
 
 const [_, setModalContent] = modalSignal
 
+interface SpeakerCreatingData {
+    name: string
+    avatar: Avatar
+}
+
 interface Props {
-    onAdded: (speakerId: string) => void
+    onAdded: (speakerCreatingData: SpeakerCreatingData) => void
+    previousRecord?: SpeakerCreatingData
 }
 
 function SpeakerModal(props: Props) {
-    const [avatar, setAvatar] = createSignal<Avatar | null>(null)
-    const [speakerName, setSpeakerName] = createSignal<string | null>(null)
+    const [avatar, setAvatar] = createSignal<Avatar | null>(
+        props.previousRecord?.avatar ?? null
+    )
+    const [speakerName, setSpeakerName] = createSignal<string | null>(
+        props.previousRecord?.name ?? null
+    )
 
     async function onAvatarImageChange(event: Event) {
         const avatarImageURL = await parseFileEvent(event)
@@ -34,19 +45,20 @@ function SpeakerModal(props: Props) {
     }
 
     function addSpeaker() {
-        console.log(speakerName(), avatar())
         if (!speakerName() || !avatar()) {
             return
         }
 
-        const addedSpeakerId = speaker.add(speakerName()!, avatar()!)
-        props.onAdded(addedSpeakerId)
+        props.onAdded({
+            name: speakerName()!,
+            avatar: avatar()!,
+        })
     }
 
     return (
         <sh-vert gap={6}>
             <sh-title L10 class={popAppearProgressiveStyle}>
-                새 참여자 만들기
+                {props.previousRecord ? '참여자 수정하기' : '새 참여자 만들기'}
             </sh-title>
             <sh-button
                 type="ghost"
@@ -115,10 +127,22 @@ function parseFileEvent(event: Event) {
 export function openAddSpeakerModal(onAdded: (speakerId: string) => void) {
     setModalContent(() => ({ close }) => (
         <SpeakerModal
-            onAdded={(speakerId) => {
+            onAdded={({ name, avatar }) => {
+                const speakerId = speaker.add(name, avatar)
                 onAdded(speakerId)
                 close()
             }}
+        />
+    ))
+}
+export function openEditSpeakerModal(speakerId: string) {
+    setModalContent(() => ({ close }) => (
+        <SpeakerModal
+            onAdded={({ name, avatar }) => {
+                speaker.edit(speakerId, name, avatar)
+                close()
+            }}
+            previousRecord={speakersSignal[0]().get(speakerId)}
         />
     ))
 }

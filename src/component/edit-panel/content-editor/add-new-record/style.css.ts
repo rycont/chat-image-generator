@@ -10,4 +10,5 @@ export const addNewRecordStyle = style({
     marginTop: '6rem',
     color: vars.color.L7,
     borderRadius: '2rem',
+    cursor: 'pointer',
 })

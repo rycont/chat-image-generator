@@ -15,10 +15,15 @@ globalStyle(`.${tableRowStyle} td, .${tableRowStyle} th`, {
     padding: '3rem',
     transition: vars.timing.ease,
     borderRadius: '1rem',
+    verticalAlign: 'middle',
 })
 
 globalStyle(`.${tableRowStyle} th:last-child`, {
-    width: '80px',
+    width: '20rem',
+})
+
+globalStyle(`.${tableRowStyle} th:first-child`, {
+    width: '40rem',
 })
 
 globalStyle(`.${tableRowStyle} td:has(input:focus)`, {

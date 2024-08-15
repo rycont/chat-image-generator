@@ -1,9 +1,12 @@
 import Dropdown from '@component/dropdown'
-import { openAddSpeakerModal } from '@component/speaker-modal'
+import {
+    openAddSpeakerModal,
+    openEditSpeakerModal,
+} from '@component/speaker-modal'
 
 import { chatContentsSignal } from '@storage/chat-contents'
 import { speakersSignal } from '@service/speaker/storage'
-import { createEffect } from 'solid-js'
+import { createEffect, Show } from 'solid-js'
 import getAvatarImageURL from '@service/avatar/get-avatar-image-url'
 import { speakerDropdownAvatarImage } from './style.css'
 
@@ -40,7 +43,7 @@ export default function SpeakerSelector(props: Props) {
             items={speakerIds()}
             selected={currentSpeakerId()}
             onChange={(id) => updateSpeakerId(id)}
-            onEdit={(id) => console.log({ id })}
+            onEdit={openEditSpeakerModal}
             addItem={() => (
                 <sh-vert
                     data-fillx
@@ -51,19 +54,27 @@ export default function SpeakerSelector(props: Props) {
                 </sh-vert>
             )}
         >
-            {(props) => (
-                <sh-horz gap={1} y="center">
+            {(props) => <SpeakerListItem id={props.id} />}
+        </Dropdown>
+    )
+}
+
+function SpeakerListItem(props: { id: string }) {
+    const thisSpeaker = () => speakers().get(props.id)
+
+    return (
+        <sh-horz gap={1} y="center">
+            <Show when={thisSpeaker()?.avatar}>
+                {(avatar) => (
                     <img
-                        src={getAvatarImageURL(
-                            speakers().get(props.id)?.avatar!
-                        )}
+                        src={getAvatarImageURL(avatar())}
                         class={speakerDropdownAvatarImage}
                     />
-                    <sh-small-text L10>
-                        {speakers().get(props.id)?.name ?? '이름없음'}
-                    </sh-small-text>
-                </sh-horz>
-            )}
-        </Dropdown>
+                )}
+            </Show>
+            <sh-small-text L10>
+                {thisSpeaker()?.name ?? '선택해주세요'}
+            </sh-small-text>
+        </sh-horz>
     )
 }

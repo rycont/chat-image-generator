@@ -8,9 +8,10 @@ export const editableText = style({
     background: 'transparent',
     color: vars.color.L10,
     padding: '3rem',
-    margin: 'none',
+    margin: 0,
     width: '100%',
     outline: 'none',
+    boxSizing: 'border-box',
     ...smallTextStyle,
 })
 
