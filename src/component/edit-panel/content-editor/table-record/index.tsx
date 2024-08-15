@@ -1,5 +1,6 @@
 import { chatContentsSignal } from '@storage/chat-contents'
-import { editableText, tableRowStyle } from './style.css'
+import { tableRowStyle } from '../style.css'
+import { editableText } from './style.css'
 
 interface Props {
     index: number
@@ -32,11 +33,12 @@ export default function TableRecord(props: Props) {
 
     return (
         <tr class={tableRowStyle}>
-            <td>{record().speaker.name}</td>
+            <td>{record()?.speaker?.name}</td>
             <td>
                 <input
                     type="text"
-                    value={record().content}
+                    value={record().content ?? ''}
+                    placeholder="내용"
                     onInput={updateContent.bind(null, 'content')}
                     class={editableText}
                 />
@@ -44,7 +46,8 @@ export default function TableRecord(props: Props) {
             <td>
                 <input
                     type="text"
-                    value={record().time}
+                    value={record().time ?? ''}
+                    placeholder="시간"
                     class={editableText}
                     onInput={updateContent.bind(null, 'time')}
                 />

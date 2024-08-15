@@ -1,6 +1,9 @@
 import { chatContentsSignal } from '@storage/chat-contents'
 import { For } from 'solid-js'
+
 import TableRecord from './table-record'
+import AddNewRecord from './add-new-record'
+
 import { chatListTable, tableRowStyle } from './style.css'
 
 export default function ContentEditor() {
@@ -8,7 +11,7 @@ export default function ContentEditor() {
     const lengthedArray = () => Array.from({ length: chatRecords().length })
 
     return (
-        <div>
+        <div data-fillx>
             <table class={chatListTable}>
                 <thead>
                     <tr class={tableRowStyle}>

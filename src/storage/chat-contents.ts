@@ -2,7 +2,7 @@ import { createSignal } from 'solid-js'
 import { ChatRecord } from '@type/chatRecord'
 import { DEMO_SPEAKERS } from './speakers'
 
-export const chatContentsSignal = createSignal<ChatRecord[]>([
+export const chatContentsSignal = createSignal<Partial<ChatRecord>[]>([
     {
         content: '멍멍',
         speaker: DEMO_SPEAKERS.cat,
