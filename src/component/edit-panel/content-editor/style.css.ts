@@ -4,6 +4,7 @@ import { editableText } from './table-record/style.css'
 
 export const tableRowStyle = style({
     transition: vars.timing.ease,
+    borderRadius: '3rem',
     selectors: {
         '&:hover': {
             background: vars.color.L2,
@@ -19,7 +20,7 @@ globalStyle(`.${tableRowStyle} td, .${tableRowStyle} th`, {
 })
 
 globalStyle(`.${tableRowStyle} th:last-child`, {
-    width: '20rem',
+    width: '30rem',
 })
 
 globalStyle(`.${tableRowStyle} th:first-child`, {

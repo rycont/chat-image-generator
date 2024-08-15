@@ -1,7 +1,9 @@
+import trashIcon from '@shade/icons/Trash.svg'
 import { chatContentsSignal } from '@storage/chat-contents'
 import { tableRowStyle } from '../style.css'
-import { editableText } from './style.css'
+import { editableText, removeButton } from './style.css'
 import SpeakerSelector from './speaker-selector'
+import { popAppearProgressiveStyle, popAppearStyle } from '@shade/theme.css'
 
 interface Props {
     index: number
@@ -32,8 +34,20 @@ export default function TableRecord(props: Props) {
         })
     }
 
+    function removeRecord() {
+        setChatContents((prev) => {
+            return prev.filter((prevRecord) => prevRecord.id !== record().id)
+        })
+    }
+
     return (
-        <tr class={tableRowStyle}>
+        <tr
+            classList={{
+                [tableRowStyle]: true,
+                [popAppearStyle]: !record().speakerId,
+                [popAppearProgressiveStyle]: !!record().speakerId,
+            }}
+        >
             <td>
                 <SpeakerSelector recordIndex={props.index} />
             </td>
@@ -54,6 +68,9 @@ export default function TableRecord(props: Props) {
                     class={editableText}
                     onInput={updateContent.bind(null, 'time')}
                 />
+                <div class={removeButton} onClick={removeRecord}>
+                    <img src={trashIcon} />
+                </div>
             </td>
         </tr>
     )
