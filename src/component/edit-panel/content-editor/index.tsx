@@ -5,6 +5,7 @@ import TableRecord from './table-record'
 import AddNewRecord from './add-new-record'
 
 import { chatListTable, tableRowStyle } from './style.css'
+import Dropdown from '@component/dropdown'
 
 export default function ContentEditor() {
     const chatRecords = chatContentsSignal[0]
@@ -12,6 +13,17 @@ export default function ContentEditor() {
 
     return (
         <div data-fillx>
+            <Dropdown
+                items={['1', '2', '3']}
+                default={'1'}
+                onChange={(e) => console.log(e)}
+            >
+                {(props) => (
+                    <>
+                        <sh-small-text L10>{props.id}</sh-small-text>시치
+                    </>
+                )}
+            </Dropdown>
             <table class={chatListTable}>
                 <thead>
                     <tr class={tableRowStyle}>
