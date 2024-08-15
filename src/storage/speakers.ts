@@ -8,6 +8,7 @@ export const DEMO_SPEAKERS = {
             value: 'U+1F90D',
         },
         name: '물고기',
+        id: crypto.randomUUID(),
     },
     cat: {
         avatar: {
@@ -15,10 +16,10 @@ export const DEMO_SPEAKERS = {
             value: 'U+1F431',
         },
         name: '고양이',
+        id: crypto.randomUUID(),
     },
 } as const
 
-export const speakersSignal = createSignal<Speaker[]>([
-    DEMO_SPEAKERS.fish,
-    DEMO_SPEAKERS.cat,
-])
+export const speakersSignal = createSignal<Map<string, Speaker>>(
+    new Map(Object.values(DEMO_SPEAKERS).map((value) => [value.id, value]))
+)

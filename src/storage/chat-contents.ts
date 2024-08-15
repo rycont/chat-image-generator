@@ -5,13 +5,13 @@ import { DEMO_SPEAKERS } from './speakers'
 export const chatContentsSignal = createSignal<Partial<ChatRecord>[]>([
     {
         content: '멍멍',
-        speaker: DEMO_SPEAKERS.cat,
+        speakerId: DEMO_SPEAKERS.cat.id,
         id: '1',
         time: '12:00',
     },
     {
         content: '야옹',
-        speaker: DEMO_SPEAKERS.fish,
+        speakerId: DEMO_SPEAKERS.fish.id,
         id: '2',
         time: '12:01',
     },

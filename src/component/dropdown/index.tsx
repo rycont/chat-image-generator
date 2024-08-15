@@ -23,7 +23,7 @@ import editIcon from '@shade/icons/Pen.svg'
 
 interface Props {
     items: string[]
-    default: string
+    selected: string
     onChange: (selected: string) => void
     onEdit?: (id: string) => void
     addItem?: ValidComponent
@@ -35,13 +35,8 @@ interface RenderProps {
 }
 
 export default function Dropdown(props: Props) {
-    const [selected, setSelected] = createSignal(props.default)
     const [selectorOpen, setSelectorOpen] = createSignal(false)
     const [isClosing, setIsClosing] = createSignal(false)
-
-    createEffect(() => {
-        props.onChange(selected())
-    })
 
     createEffect(() => {
         const isSelectorOpen = selectorOpen()
@@ -89,7 +84,7 @@ export default function Dropdown(props: Props) {
                 }}
             >
                 <div class={contentAreaStyle}>
-                    <Dynamic component={props.children} id={selected()} />
+                    <Dynamic component={props.children} id={props.selected} />
                 </div>
             </div>
             <Show when={isSelectorVisible()}>
@@ -115,7 +110,7 @@ export default function Dropdown(props: Props) {
                     <For each={props.items}>
                         {(id) => (
                             <div
-                                onClick={() => setSelected(id)}
+                                onClick={() => props.onChange(id)}
                                 classList={{
                                     [itemStyle]: true,
                                     [progressiveDropdown]: true,

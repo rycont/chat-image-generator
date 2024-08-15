@@ -79,6 +79,10 @@ export const itemAdderStyle = style({
     justifyContent: 'center',
 })
 
+globalStyle(`.${wrapperStyle}:has(.${optionsWrapperStyle})`, {
+    zIndex: 1,
+})
+
 globalStyle(
     `.${itemStyle}:has(+ .${optionsWrapperStyle}:not(.${optionsWrapperDisappearStyle}))`,
     {

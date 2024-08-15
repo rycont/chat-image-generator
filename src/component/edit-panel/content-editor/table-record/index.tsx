@@ -1,6 +1,7 @@
 import { chatContentsSignal } from '@storage/chat-contents'
 import { tableRowStyle } from '../style.css'
 import { editableText } from './style.css'
+import SpeakerSelector from './speaker-selector'
 
 interface Props {
     index: number
@@ -33,7 +34,9 @@ export default function TableRecord(props: Props) {
 
     return (
         <tr class={tableRowStyle}>
-            <td>{record()?.speaker?.name}</td>
+            <td>
+                <SpeakerSelector recordIndex={props.index} />
+            </td>
             <td>
                 <input
                     type="text"

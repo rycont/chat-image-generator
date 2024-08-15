@@ -1,7 +1,7 @@
 import { Speaker } from './speaker'
 
 export interface ChatRecord {
-    speaker: Speaker
+    speakerId: string
     content: string
     time: string
     id: string
