@@ -6,9 +6,12 @@ export type SolidProps<T, E extends HTMLElement = HTMLElement> = Omit<
 > & {
     key?: string
     children?: any
-} & T & {
-        [key in keyof T as `attr:${string & key}`]: T[key] | null
-    }
+} & (
+        | T
+        | {
+              [key in keyof T as `attr:${string & key}`]: T[key] | null
+          }
+    )
 
 import { ShadeHovertProps, horz, vert } from '@shade/dist/elements/hovert'
 import Card, { ShadeCardProps } from '@shade/dist/elements/card'
@@ -17,6 +20,7 @@ import Button, { ShadeButtonProps } from '@shade/dist/elements/button'
 import Divider, { ShadeDividerProps } from '@shade/dist/elements/divider'
 import Checkbox, { ShadeCheckboxProps } from '@shade/dist/elements/checkbox'
 import Input, { ShadeInputProps } from '@shade/dist/elements/input'
+import Label, { ShadeLabelProps } from '@shade/dist/elements/label'
 import { ShadeTypoProps } from '@shade/dist/elements/typo'
 
 declare module 'solid-js' {
@@ -35,6 +39,7 @@ declare module 'solid-js' {
             [Checkbox]: SolidProps<ShadeCheckboxProps, HTMLInputElement>
             [Divider]: SolidProps<ShadeDividerProps>
             [Input]: SolidProps<ShadeInputProps, HTMLInputElement>
+            [Label]: SolidProps<ShadeLabelProps>
         }
     }
 }

@@ -1,6 +1,8 @@
 import Dropdown from '@component/dropdown'
+import { openAddSpeakerModal } from '@component/speaker-modal'
 
 import { chatContentsSignal } from '@storage/chat-contents'
+import { modalSignal } from '@storage/modal'
 import { speakersSignal } from '@storage/speakers'
 
 interface Props {
@@ -9,7 +11,10 @@ interface Props {
 
 const [speakers] = speakersSignal
 const [chatContents, setChatContents] = chatContentsSignal
+
 const speakerIds = () => [...speakers().keys()]
+
+openAddSpeakerModal()
 
 export default function SpeakerSelector(props: Props) {
     const thisRecord = () => chatContents()[props.recordIndex]
@@ -37,7 +42,7 @@ export default function SpeakerSelector(props: Props) {
             onChange={(id) => updateSpeakerId(id)}
             onEdit={(id) => console.log({ id })}
             addItem={() => (
-                <sh-vert data-fillx x="center">
+                <sh-vert data-fillx x="center" onClick={openAddSpeakerModal}>
                     <sh-small-text L7>참여자 추가 +</sh-small-text>
                 </sh-vert>
             )}

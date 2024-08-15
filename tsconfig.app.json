@@ -26,6 +26,7 @@
             "@shade/*": ["src/shade-ui/*"],
             "@component/*": ["src/component/*"],
             "@storage/*": ["src/storage/*"],
+            "@service/*": ["src/service/*"],
             "@type/*": ["src/type/*"],
             "@/*": ["src/*"]
         }
