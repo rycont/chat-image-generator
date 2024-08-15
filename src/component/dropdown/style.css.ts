@@ -62,11 +62,31 @@ export const currentItemStyle = style({
     boxSizing: 'border-box',
 })
 
-globalStyle(`.${itemStyle}:has(+ .${optionsWrapperStyle})`, {
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    borderBottomColor: 'transparent',
+export const optionsWrapperDisappearStyle = style({
+    animation: `${keyframes({
+        from: {
+            borderColor: vars.color.L4,
+        },
+        to: {
+            borderColor: 'transparent',
+        },
+    })} ${vars.bezier.ease} 500ms forwards`,
 })
+
+export const itemAdderStyle = style({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+})
+
+globalStyle(
+    `.${itemStyle}:has(+ .${optionsWrapperStyle}:not(.${optionsWrapperDisappearStyle}))`,
+    {
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+        borderBottomColor: 'transparent',
+    }
+)
 
 globalStyle(`.${itemStyle}:hover`, {
     backgroundColor: vars.color.L2,
@@ -76,7 +96,8 @@ globalStyle(`.${itemStyle}:hover .${buttonAreaStyle}`, {
     opacity: 1,
 })
 
-const progressiveAppear: Record<string, CSSProperties> = {}
+const progressiveDelay: Record<string, CSSProperties> = {}
+
 const gap = 50
 
 for (let i = 2; i < 10; i++) {
@@ -84,7 +105,7 @@ for (let i = 2; i < 10; i++) {
     const rule = {
         animationDelay: gap * (i - 1) + 'ms',
     }
-    progressiveAppear[selector] = rule
+    progressiveDelay[selector] = rule
 }
 
 export const popAppear = keyframes({
@@ -102,7 +123,23 @@ export const progressiveDropdown = style(
         opacity: 0,
         transform: 'translateY(-2rem)',
         animation: `${popAppear} ${vars.bezier.ease} 500ms forwards`,
-        selectors: progressiveAppear,
+        selectors: progressiveDelay,
     },
     'progressively-appear'
 )
+
+export const disappearStyle = style({
+    opacity: 1,
+    transform: 'translateY(0)',
+    animation: `${keyframes({
+        from: {
+            opacity: 1,
+            transform: 'translateY(0)',
+        },
+        to: {
+            opacity: 0,
+            transform: 'translateY(-2rem)',
+        },
+    })} ${vars.bezier.ease} 500ms forwards`,
+    selectors: progressiveDelay,
+})

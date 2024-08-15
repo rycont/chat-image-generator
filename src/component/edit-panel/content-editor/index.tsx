@@ -17,6 +17,12 @@ export default function ContentEditor() {
                 items={['1', '2', '3']}
                 default={'1'}
                 onChange={(e) => console.log(e)}
+                onEdit={(id) => console.log({ id })}
+                addItem={() => (
+                    <sh-vert data-fillx x="center">
+                        <sh-small-text L7>참여자 추가 +</sh-small-text>
+                    </sh-vert>
+                )}
             >
                 {(props) => (
                     <>

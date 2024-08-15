@@ -1,10 +1,20 @@
-import { createEffect, createSignal, For, JSX, Show } from 'solid-js'
+import {
+    createEffect,
+    createSignal,
+    For,
+    JSX,
+    Show,
+    ValidComponent,
+} from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import {
     buttonAreaStyle,
     contentAreaStyle,
     currentItemStyle,
+    disappearStyle,
+    itemAdderStyle,
     itemStyle,
+    optionsWrapperDisappearStyle,
     optionsWrapperStyle,
     progressiveDropdown,
     wrapperStyle,
@@ -15,6 +25,8 @@ interface Props {
     items: string[]
     default: string
     onChange: (selected: string) => void
+    onEdit?: (id: string) => void
+    addItem?: ValidComponent
     children: (props: RenderProps) => JSX.Element
 }
 
@@ -25,27 +37,90 @@ interface RenderProps {
 export default function Dropdown(props: Props) {
     const [selected, setSelected] = createSignal(props.default)
     const [selectorOpen, setSelectorOpen] = createSignal(false)
+    const [isClosing, setIsClosing] = createSignal(false)
 
     createEffect(() => {
         props.onChange(selected())
     })
 
+    createEffect(() => {
+        const isSelectorOpen = selectorOpen()
+
+        if (!isSelectorOpen) {
+            return
+        }
+    })
+
+    const isSelectorVisible = () => selectorOpen() || isClosing()
+
+    const toggleSelectorOpen = () => {
+        if (selectorOpen()) {
+            setIsClosing(true)
+            setTimeout(() => {
+                setSelectorOpen(false)
+                setIsClosing(false)
+            }, 500)
+        } else {
+            setSelectorOpen(true)
+
+            document.addEventListener('click', (e) => {
+                const target = e.target as HTMLElement
+                const isInside = target.closest(`.${wrapperStyle}`)
+
+                if (isInside) {
+                    return
+                }
+
+                setIsClosing(true)
+                setTimeout(() => {
+                    setSelectorOpen(false)
+                    setIsClosing(false)
+                }, 500)
+            })
+        }
+    }
+
     return (
-        <div class={wrapperStyle} onClick={() => setSelectorOpen((f) => !f)}>
-            <div class={[itemStyle, currentItemStyle].join(' ')}>
+        <div class={wrapperStyle} onClick={() => toggleSelectorOpen()}>
+            <div
+                classList={{
+                    [itemStyle]: true,
+                    [currentItemStyle]: true,
+                }}
+            >
                 <div class={contentAreaStyle}>
                     <Dynamic component={props.children} id={selected()} />
                 </div>
             </div>
-            <Show when={selectorOpen()}>
-                <div class={optionsWrapperStyle}>
+            <Show when={isSelectorVisible()}>
+                <div
+                    classList={{
+                        [optionsWrapperStyle]: true,
+                        [optionsWrapperDisappearStyle]: isClosing(),
+                    }}
+                >
+                    <Show when={props.addItem}>
+                        <div
+                            classList={{
+                                [itemStyle]: true,
+                                [contentAreaStyle]: true,
+                                [progressiveDropdown]: true,
+                                [itemAdderStyle]: true,
+                                [disappearStyle]: isClosing(),
+                            }}
+                        >
+                            <Dynamic component={props.addItem} />
+                        </div>
+                    </Show>
                     <For each={props.items}>
                         {(id) => (
                             <div
                                 onClick={() => setSelected(id)}
-                                class={[itemStyle, progressiveDropdown].join(
-                                    ' '
-                                )}
+                                classList={{
+                                    [itemStyle]: true,
+                                    [progressiveDropdown]: true,
+                                    [disappearStyle]: isClosing(),
+                                }}
                             >
                                 <div class={contentAreaStyle}>
                                     <Dynamic
@@ -53,9 +128,14 @@ export default function Dropdown(props: Props) {
                                         id={id}
                                     />
                                 </div>
-                                <div class={buttonAreaStyle}>
-                                    <img src={editIcon} alt="edit icon" />
-                                </div>
+                                <Show when={props.onEdit}>
+                                    <div
+                                        class={buttonAreaStyle}
+                                        onClick={props.onEdit!.bind(null, id)}
+                                    >
+                                        <img src={editIcon} alt="edit icon" />
+                                    </div>
+                                </Show>
                             </div>
                         )}
                     </For>
