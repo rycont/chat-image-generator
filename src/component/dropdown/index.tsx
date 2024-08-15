@@ -5,7 +5,8 @@ import {
     contentAreaStyle,
     currentItemStyle,
     itemStyle,
-    optionsStyle,
+    optionsWrapperStyle,
+    progressiveDropdown,
     wrapperStyle,
 } from './style.css'
 import editIcon from '@shade/icons/Pen.svg'
@@ -37,12 +38,14 @@ export default function Dropdown(props: Props) {
                 </div>
             </div>
             <Show when={selectorOpen()}>
-                <div class={optionsStyle}>
+                <div class={optionsWrapperStyle}>
                     <For each={props.items}>
                         {(id) => (
                             <div
                                 onClick={() => setSelected(id)}
-                                class={itemStyle}
+                                class={[itemStyle, progressiveDropdown].join(
+                                    ' '
+                                )}
                             >
                                 <div class={contentAreaStyle}>
                                     <Dynamic
