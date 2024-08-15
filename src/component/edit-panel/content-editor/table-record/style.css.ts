@@ -13,3 +13,8 @@ export const editableText = style({
     outline: 'none',
     ...smallTextStyle,
 })
+
+export const speakerDropdownAvatarImage = style({
+    width: '5rem',
+    height: '5rem',
+})

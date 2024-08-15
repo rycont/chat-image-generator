@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js'
 import { ChatRecord } from '@type/chatRecord'
-import { DEMO_SPEAKERS } from './speakers'
+import { DEMO_SPEAKERS } from '../service/speaker/storage'
 
 export const chatContentsSignal = createSignal<Partial<ChatRecord>[]>([
     {

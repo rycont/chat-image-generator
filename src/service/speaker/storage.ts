@@ -5,7 +5,7 @@ export const DEMO_SPEAKERS = {
     fish: {
         avatar: {
             source: 'tossface',
-            value: 'U+1F90D',
+            value: 'u1F90D.svg',
         },
         name: '물고기',
         id: crypto.randomUUID(),
@@ -13,7 +13,7 @@ export const DEMO_SPEAKERS = {
     cat: {
         avatar: {
             source: 'tossface',
-            value: 'U+1F431',
+            value: 'u1F431.svg',
         },
         name: '고양이',
         id: crypto.randomUUID(),

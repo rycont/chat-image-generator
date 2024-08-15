@@ -10,7 +10,7 @@ export const backdropStyle = style({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 1,
+    zIndex: 2,
     padding: '4rem',
     boxSizing: 'border-box',
 })

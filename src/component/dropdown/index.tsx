@@ -58,20 +58,26 @@ export default function Dropdown(props: Props) {
         } else {
             setSelectorOpen(true)
 
-            document.addEventListener('click', (e) => {
-                const target = e.target as HTMLElement
-                const isInside = target.closest(`.${wrapperStyle}`)
+            document.addEventListener(
+                'click',
+                (e) => {
+                    const target = e.target as HTMLElement
+                    const isInside = target.closest(`.${wrapperStyle}`)
 
-                if (isInside) {
-                    return
+                    if (isInside) {
+                        return
+                    }
+
+                    setIsClosing(true)
+                    setTimeout(() => {
+                        setSelectorOpen(false)
+                        setIsClosing(false)
+                    }, 500)
+                },
+                {
+                    once: true,
                 }
-
-                setIsClosing(true)
-                setTimeout(() => {
-                    setSelectorOpen(false)
-                    setIsClosing(false)
-                }, 500)
-            })
+            )
         }
     }
 

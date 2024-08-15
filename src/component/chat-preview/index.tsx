@@ -1,6 +1,6 @@
 import { chatContentsSignal } from '@storage/chat-contents.ts'
 import { previewWrapper } from './style.css.ts'
-import { speakersSignal } from '@storage/speakers.ts'
+import { speakersSignal } from '@service/speaker/storage.ts'
 import { For } from 'solid-js'
 export default function ChatPreview() {
     const chatRecords = chatContentsSignal[0]
