@@ -18,6 +18,11 @@ export const itemStyle = style({
     justifyContent: 'space-between',
     transition: vars.timing.ease,
     backgroundColor: vars.color.L1,
+    selectors: {
+        '&[data-focused]': {
+            backgroundColor: vars.color.L2,
+        },
+    },
 })
 
 export const contentAreaStyle = style({
@@ -31,6 +36,11 @@ export const buttonAreaStyle = style({
     transition: vars.timing.ease,
     borderTopLeftRadius: '3rem',
     borderBottomLeftRadius: '3rem',
+    selectors: {
+        [`${itemStyle}[data-focused] &`]: {
+            opacity: 1,
+        },
+    },
 })
 
 const optionsWrapperAppear = keyframes({
@@ -89,14 +99,6 @@ export const itemAdderStyle = style({
 })
 
 globalStyle(`.${wrapperStyle}:has(.${optionsWrapperStyle})`, {})
-
-globalStyle(`.${itemStyle}:hover`, {
-    backgroundColor: vars.color.L2,
-})
-
-globalStyle(`.${itemStyle}:hover .${buttonAreaStyle}`, {
-    opacity: 1,
-})
 
 const progressiveDelay: Record<string, CSSProperties> = {}
 const progressiveDelayReverse: Record<string, CSSProperties> = {}

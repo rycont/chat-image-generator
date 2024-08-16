@@ -70,6 +70,7 @@ function SpeakerModal(props: Props) {
             </sh-button>
             <sh-label attr:title="이름" class={popAppearProgressiveStyle}>
                 <sh-input
+                    autofocus
                     attr:value={speakerName()}
                     onChange={(event) => setSpeakerName(event.target.value)}
                 ></sh-input>

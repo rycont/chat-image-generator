@@ -1,4 +1,11 @@
-import { createSignal, For, JSX, Show, ValidComponent } from 'solid-js'
+import {
+    createEffect,
+    createSignal,
+    For,
+    JSX,
+    Show,
+    ValidComponent,
+} from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import {
     buttonAreaStyle,
@@ -38,13 +45,26 @@ type DivKeyboardEvent = KeyboardEvent & {
     target: DOMElement
 }
 
-const OPENING_KEYS = ['Enter', ' ']
+const OPENING_KEYS_KEYS = ['Enter', ' ']
 
 export default function Dropdown(props: Props) {
+    let addItemRef!: HTMLElement
+
     const [selectorOpen, setSelectorOpen] = createSignal(false)
     const [isClosing, setIsClosing] = createSignal(false)
+    const [focusingIndex, setFocusingIndex] = createSignal(-1)
 
     const isSelectorVisible = () => selectorOpen() || isClosing()
+
+    createEffect(() => {
+        const selectedIndex = props.items.indexOf(props.selected)
+
+        if (selectedIndex === -1) {
+            setFocusingIndex(0)
+        } else {
+            setFocusingIndex(selectedIndex)
+        }
+    })
 
     function openSelector() {
         setSelectorOpen(true)
@@ -68,10 +88,45 @@ export default function Dropdown(props: Props) {
     }
 
     function onKeyDown(e: DivKeyboardEvent) {
-        const isOpeningKey = OPENING_KEYS.includes(e.key)
-        if (!isOpeningKey) return
+        const IS_SELECTING_KEY = handleSelectingKey(e)
+        if (IS_SELECTING_KEY) return
 
-        openSelector()
+        const IS_ARROW_KEY = handleArrowKey(e)
+        if (IS_ARROW_KEY) return
+    }
+
+    function handleSelectingKey(e: DivKeyboardEvent) {
+        const isSelectingKey = OPENING_KEYS_KEYS.includes(e.key)
+        if (!isSelectingKey) return false
+
+        if (!selectorOpen()) {
+            openSelector()
+        } else {
+            if (focusingIndex() === -1) {
+                console.log(addItemRef)
+                addItemRef.click()
+
+                return true
+            }
+
+            onChange(props.items[focusingIndex()])
+        }
+
+        return true
+    }
+
+    function handleArrowKey(e: DivKeyboardEvent) {
+        if (e.key === 'ArrowDown') {
+            setFocusingIndex(
+                Math.min(focusingIndex() + 1, props.items.length - 1)
+            )
+            return true
+        } else if (e.key === 'ArrowUp') {
+            setFocusingIndex(Math.max(focusingIndex() - 1, -1))
+            return true
+        }
+
+        return false
     }
 
     function onChange(id: string) {
@@ -113,12 +168,16 @@ export default function Dropdown(props: Props) {
                                 [itemAdderStyle]: true,
                                 [disappearStyle]: isClosing(),
                             }}
+                            data-focused={focusingIndex() === -1 ? '' : null}
                         >
-                            <Dynamic component={props.addItem} />
+                            <Dynamic
+                                component={props.addItem}
+                                ref={addItemRef}
+                            />
                         </div>
                     </Show>
                     <For each={props.items}>
-                        {(id) => (
+                        {(id, index) => (
                             <div
                                 onClick={onChange.bind(null, id)}
                                 classList={{
@@ -126,6 +185,12 @@ export default function Dropdown(props: Props) {
                                     [progressiveDropdown]: !isClosing(),
                                     [disappearStyle]: isClosing(),
                                 }}
+                                data-focused={
+                                    index() === focusingIndex() ? '' : null
+                                }
+                                onMouseEnter={() =>
+                                    setFocusingIndex(props.items.indexOf(id))
+                                }
                             >
                                 <div class={contentAreaStyle}>
                                     <Dynamic

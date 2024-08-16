@@ -44,11 +44,12 @@ export default function SpeakerSelector(props: Props) {
             selected={currentSpeakerId()}
             onChange={(id) => updateSpeakerId(id)}
             onEdit={openEditSpeakerModal}
-            addItem={() => (
+            addItem={(props) => (
                 <sh-vert
                     data-fillx
                     x="center"
                     onClick={openAddSpeakerModal.bind(null, updateSpeakerId)}
+                    ref={props.ref}
                 >
                     <sh-small-text L7>참여자 추가 +</sh-small-text>
                 </sh-vert>
