@@ -1,15 +1,21 @@
 import { vars } from '@shade/theme.css'
 import { globalStyle, style } from '@vanilla-extract/css'
 import { editableText } from './table-record/style.css'
+import { optionsWrapperStyle } from '@component/dropdown/style.css'
 
 export const tableRowStyle = style({
     transition: vars.timing.ease,
     borderRadius: '3rem',
+    position: 'relative',
     selectors: {
         '&:hover': {
             background: vars.color.L2,
         },
     },
+})
+
+globalStyle(`.${tableRowStyle}:has(.${optionsWrapperStyle})`, {
+    zIndex: 1,
 })
 
 globalStyle(`.${tableRowStyle} td, .${tableRowStyle} th`, {

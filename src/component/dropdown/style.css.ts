@@ -145,5 +145,6 @@ export const disappearStyle = style({
             transform: 'translateY(-2rem)',
         },
     })} ${vars.bezier.ease} 500ms forwards`,
+    pointerEvents: 'none',
     selectors: progressiveDelay,
 })

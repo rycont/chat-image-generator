@@ -105,7 +105,7 @@ export default function Dropdown(props: Props) {
                             classList={{
                                 [itemStyle]: true,
                                 [contentAreaStyle]: true,
-                                [progressiveDropdown]: true,
+                                [progressiveDropdown]: !isClosing(),
                                 [itemAdderStyle]: true,
                                 [disappearStyle]: isClosing(),
                             }}
@@ -119,7 +119,7 @@ export default function Dropdown(props: Props) {
                                 onClick={() => props.onChange(id)}
                                 classList={{
                                     [itemStyle]: true,
-                                    [progressiveDropdown]: true,
+                                    [progressiveDropdown]: !isClosing(),
                                     [disappearStyle]: isClosing(),
                                 }}
                             >
