@@ -9,6 +9,7 @@ import {
 export const wrapperStyle = style({
     cursor: 'pointer',
     position: 'relative',
+    outline: 'none',
 })
 
 export const itemStyle = style({
@@ -35,31 +36,39 @@ export const buttonAreaStyle = style({
 const optionsWrapperAppear = keyframes({
     from: {
         borderColor: 'transparent',
+        transform: 'scaleY(0.5)',
+        marginTop: '-3rem',
     },
     to: {
         borderColor: vars.color.L4,
+        transform: 'scaleY(1)',
+        marginTop: '2rem',
     },
 })
 
 export const optionsWrapperStyle = style({
+    transformOrigin: 'top center',
     transition: vars.timing.ease,
     position: 'absolute',
     width: '100%',
     border: `0.5rem solid ${vars.color.L4}`,
     boxSizing: 'border-box',
-    borderBottomLeftRadius: '3rem',
-    borderBottomRightRadius: '3rem',
+    borderRadius: '3rem',
     overflow: 'hidden',
-    animation: `${optionsWrapperAppear} ${vars.bezier.ease} 500ms forwards`,
+    animation: `${optionsWrapperAppear} ${vars.bezier.ease} 300ms`,
+    marginTop: '2rem',
 })
 
 export const currentItemStyle = style({
     backgroundColor: vars.color.L2,
     border: `0.5rem solid ${vars.color.L4}`,
     borderRadius: '3rem',
-    borderBottomLeftRadius: '3rem',
-    borderBottomRightRadius: '3rem',
     boxSizing: 'border-box',
+})
+
+globalStyle(`.${wrapperStyle}:focus .${currentItemStyle}`, {
+    borderColor: vars.color.L6,
+    backgroundColor: vars.color.L1,
 })
 
 export const optionsWrapperDisappearStyle = style({
@@ -70,7 +79,7 @@ export const optionsWrapperDisappearStyle = style({
         to: {
             borderColor: 'transparent',
         },
-    })} ${vars.bezier.ease} 500ms forwards`,
+    })} ${vars.bezier.ease} 300ms forwards`,
 })
 
 export const itemAdderStyle = style({
@@ -79,18 +88,7 @@ export const itemAdderStyle = style({
     justifyContent: 'center',
 })
 
-globalStyle(`.${wrapperStyle}:has(.${optionsWrapperStyle})`, {
-    zIndex: 1,
-})
-
-globalStyle(
-    `.${itemStyle}:has(+ .${optionsWrapperStyle}:not(.${optionsWrapperDisappearStyle}))`,
-    {
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
-        borderBottomColor: 'transparent',
-    }
-)
+globalStyle(`.${wrapperStyle}:has(.${optionsWrapperStyle})`, {})
 
 globalStyle(`.${itemStyle}:hover`, {
     backgroundColor: vars.color.L2,
@@ -101,15 +99,19 @@ globalStyle(`.${itemStyle}:hover .${buttonAreaStyle}`, {
 })
 
 const progressiveDelay: Record<string, CSSProperties> = {}
+const progressiveDelayReverse: Record<string, CSSProperties> = {}
 
 const gap = 50
 
 for (let i = 2; i < 10; i++) {
-    const selector = [...'&'.repeat(i)].join('+')
+    const selector = `&:nth-of-type(${i})`
     const rule = {
         animationDelay: gap * (i - 1) + 'ms',
     }
     progressiveDelay[selector] = rule
+
+    const reverseSelector = `&:nth-last-of-type(${i})`
+    progressiveDelayReverse[reverseSelector] = rule
 }
 
 export const popAppear = keyframes({
@@ -126,7 +128,7 @@ export const progressiveDropdown = style(
     {
         opacity: 0,
         transform: 'translateY(-2rem)',
-        animation: `${popAppear} ${vars.bezier.ease} 500ms forwards`,
+        animation: `${popAppear} ${vars.bezier.ease} 300ms forwards`,
         selectors: progressiveDelay,
     },
     'progressively-appear'
@@ -144,7 +146,7 @@ export const disappearStyle = style({
             opacity: 0,
             transform: 'translateY(-2rem)',
         },
-    })} ${vars.bezier.ease} 500ms forwards`,
+    })} ${vars.bezier.ease} 300ms forwards`,
     pointerEvents: 'none',
-    selectors: progressiveDelay,
+    selectors: progressiveDelayReverse,
 })

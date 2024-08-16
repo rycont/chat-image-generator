@@ -1,11 +1,4 @@
-import {
-    createEffect,
-    createSignal,
-    For,
-    JSX,
-    Show,
-    ValidComponent,
-} from 'solid-js'
+import { createSignal, For, JSX, Show, ValidComponent } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import {
     buttonAreaStyle,
@@ -20,6 +13,7 @@ import {
     wrapperStyle,
 } from './style.css'
 import editIcon from '@shade/icons/Pen.svg'
+import { DOMElement } from 'solid-js/jsx-runtime'
 
 interface Props {
     items: string[]
@@ -34,55 +28,65 @@ interface RenderProps {
     id: string
 }
 
+type DivMouseEvent = MouseEvent & {
+    currentTarget: HTMLDivElement
+    target: DOMElement
+}
+
+type DivKeyboardEvent = KeyboardEvent & {
+    currentTarget: HTMLDivElement
+    target: DOMElement
+}
+
+const OPENING_KEYS = ['Enter', ' ']
+
 export default function Dropdown(props: Props) {
     const [selectorOpen, setSelectorOpen] = createSignal(false)
     const [isClosing, setIsClosing] = createSignal(false)
 
-    createEffect(() => {
-        const isSelectorOpen = selectorOpen()
-
-        if (!isSelectorOpen) {
-            return
-        }
-    })
-
     const isSelectorVisible = () => selectorOpen() || isClosing()
 
-    const toggleSelectorOpen = () => {
-        if (selectorOpen()) {
-            setIsClosing(true)
-            setTimeout(() => {
-                setSelectorOpen(false)
-                setIsClosing(false)
-            }, 500)
-        } else {
-            setSelectorOpen(true)
+    function openSelector() {
+        setSelectorOpen(true)
+    }
 
-            document.addEventListener(
-                'click',
-                (e) => {
-                    const target = e.target as HTMLElement
-                    const isInside = target.closest(`.${wrapperStyle}`)
+    function closeSelector() {
+        if (!selectorOpen()) return
 
-                    if (isInside) {
-                        return
-                    }
+        setIsClosing(true)
+        setTimeout(() => {
+            setSelectorOpen(false)
+            setIsClosing(false)
+        }, 300)
+    }
 
-                    setIsClosing(true)
-                    setTimeout(() => {
-                        setSelectorOpen(false)
-                        setIsClosing(false)
-                    }, 500)
-                },
-                {
-                    once: true,
-                }
-            )
-        }
+    function onEdit(e: DivMouseEvent) {
+        if (!props.onEdit) return
+
+        e.stopPropagation()
+        props.onEdit!(props.selected)
+    }
+
+    function onKeyDown(e: DivKeyboardEvent) {
+        const isOpeningKey = OPENING_KEYS.includes(e.key)
+        if (!isOpeningKey) return
+
+        openSelector()
+    }
+
+    function onChange(id: string) {
+        props.onChange(id)
+        closeSelector()
     }
 
     return (
-        <div class={wrapperStyle} onClick={() => toggleSelectorOpen()}>
+        <div
+            class={wrapperStyle}
+            onBlur={closeSelector}
+            onClick={openSelector}
+            onKeyDown={onKeyDown}
+            tabIndex={0}
+        >
             <div
                 classList={{
                     [itemStyle]: true,
@@ -116,7 +120,7 @@ export default function Dropdown(props: Props) {
                     <For each={props.items}>
                         {(id) => (
                             <div
-                                onClick={() => props.onChange(id)}
+                                onClick={onChange.bind(null, id)}
                                 classList={{
                                     [itemStyle]: true,
                                     [progressiveDropdown]: !isClosing(),
@@ -132,7 +136,7 @@ export default function Dropdown(props: Props) {
                                 <Show when={props.onEdit}>
                                     <div
                                         class={buttonAreaStyle}
-                                        onClick={props.onEdit!.bind(null, id)}
+                                        onClick={onEdit}
                                     >
                                         <img src={editIcon} alt="edit icon" />
                                     </div>

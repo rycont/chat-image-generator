@@ -8,7 +8,7 @@ export const tableRowStyle = style({
     borderRadius: '3rem',
     position: 'relative',
     selectors: {
-        '&:hover': {
+        '&:hover, &:focus-within': {
             background: vars.color.L2,
         },
     },
@@ -21,9 +21,15 @@ globalStyle(`.${tableRowStyle}:has(.${optionsWrapperStyle})`, {
 globalStyle(`.${tableRowStyle} td, .${tableRowStyle} th`, {
     padding: '3rem',
     transition: vars.timing.ease,
-    borderRadius: '1rem',
     verticalAlign: 'middle',
 })
+
+globalStyle(
+    `.${tableRowStyle} td:focus-within, .${tableRowStyle} th:focus-within`,
+    {
+        borderRadius: '3rem',
+    }
+)
 
 globalStyle(`.${tableRowStyle} th:last-child`, {
     width: '30rem',
@@ -33,8 +39,8 @@ globalStyle(`.${tableRowStyle} th:first-child`, {
     width: '40rem',
 })
 
-globalStyle(`.${tableRowStyle} td:has(input:focus)`, {
-    boxShadow: `inset 0 0 0 0.5rem ${vars.color.L6}`,
+globalStyle(`.${tableRowStyle} td:focus-within`, {
+    boxShadow: `inset 0 0 0 0.5rem ${vars.color.L4}`,
 })
 
 globalStyle(`.${tableRowStyle} td:has(.${editableText})`, {
