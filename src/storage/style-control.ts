@@ -1,7 +1,15 @@
-import { createSignal, JSX } from 'solid-js'
+import { createSignal, JSX, Signal } from 'solid-js'
+
+export enum EDITABLE_ELEMENTS {
+    CHAT_WRAPPER = 'chatWrapper',
+    CHAT_BUBBLE = 'chatBubble',
+    SPEAKER_TEXT = 'speakerText',
+    SPEAKER_AVATAR = 'speakerAvatar',
+    TIME_TEXT = 'timeText',
+}
 
 const defaultStyles: Record<string, JSX.CSSProperties> = {
-    speakerAvatar: {
+    [EDITABLE_ELEMENTS.SPEAKER_AVATAR]: {
         width: '36px',
         height: '36px',
         'background-color': 'white',
@@ -10,7 +18,7 @@ const defaultStyles: Record<string, JSX.CSSProperties> = {
         'border-style': 'solid',
         'border-radius': '12px',
     },
-    chatBubble: {
+    [EDITABLE_ELEMENTS.CHAT_BUBBLE]: {
         'background-color': '#FFFFFF',
         'border-radius': '12px',
         'font-weight': '500',
@@ -19,32 +27,38 @@ const defaultStyles: Record<string, JSX.CSSProperties> = {
         color: '#000000',
         width: 'fit-content',
     },
-    chatWrapper: {
+    [EDITABLE_ELEMENTS.CHAT_WRAPPER]: {
         'background-color': '#EBECF5',
         padding: '16px',
     },
-    speakerText: {
+    [EDITABLE_ELEMENTS.SPEAKER_TEXT]: {
         'font-weight': '800',
         'font-size': '16px',
     },
-    timeText: {
+    [EDITABLE_ELEMENTS.TIME_TEXT]: {
         'font-size': '14px',
         color: '#8E8E93',
     },
 }
 
-export const chatWrapperStyleSignal = createSignal<JSX.CSSProperties>(
+const chatWrapperSignal = createSignal<JSX.CSSProperties>(
     defaultStyles.chatWrapper
 )
-export const chatBubbleStyleSignal = createSignal<JSX.CSSProperties>(
+const chatBubbleSignal = createSignal<JSX.CSSProperties>(
     defaultStyles.chatBubble
 )
-export const speakerTextStyleSignal = createSignal<JSX.CSSProperties>(
+const speakerTextSignal = createSignal<JSX.CSSProperties>(
     defaultStyles.speakerText
 )
-export const speakerAvatarStyleSignal = createSignal<JSX.CSSProperties>(
+const speakerAvatarSignal = createSignal<JSX.CSSProperties>(
     defaultStyles.speakerAvatar
 )
-export const timeTextStyleSignal = createSignal<JSX.CSSProperties>(
-    defaultStyles.timeText
-)
+const timeTextSignal = createSignal<JSX.CSSProperties>(defaultStyles.timeText)
+
+export const styleSignals = {
+    [EDITABLE_ELEMENTS.CHAT_WRAPPER]: chatWrapperSignal,
+    [EDITABLE_ELEMENTS.CHAT_BUBBLE]: chatBubbleSignal,
+    [EDITABLE_ELEMENTS.SPEAKER_TEXT]: speakerTextSignal,
+    [EDITABLE_ELEMENTS.SPEAKER_AVATAR]: speakerAvatarSignal,
+    [EDITABLE_ELEMENTS.TIME_TEXT]: timeTextSignal,
+} as Record<EDITABLE_ELEMENTS, Signal<JSX.CSSProperties>>
