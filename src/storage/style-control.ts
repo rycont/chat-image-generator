@@ -1,6 +1,6 @@
 import { createSignal, JSX, Signal } from 'solid-js'
 
-export enum EDITABLE_ELEMENTS {
+export enum EDITABLE_PARTS {
     CHAT_WRAPPER = 'chatWrapper',
     CHAT_BUBBLE = 'chatBubble',
     SPEAKER_TEXT = 'speakerText',
@@ -8,8 +8,8 @@ export enum EDITABLE_ELEMENTS {
     TIME_TEXT = 'timeText',
 }
 
-const defaultStyles: Record<string, JSX.CSSProperties> = {
-    [EDITABLE_ELEMENTS.SPEAKER_AVATAR]: {
+const defaultStyles = {
+    [EDITABLE_PARTS.SPEAKER_AVATAR]: {
         width: '36px',
         height: '36px',
         'background-color': 'white',
@@ -18,7 +18,7 @@ const defaultStyles: Record<string, JSX.CSSProperties> = {
         'border-style': 'solid',
         'border-radius': '12px',
     },
-    [EDITABLE_ELEMENTS.CHAT_BUBBLE]: {
+    [EDITABLE_PARTS.CHAT_BUBBLE]: {
         'background-color': '#FFFFFF',
         'border-radius': '12px',
         'font-weight': '500',
@@ -27,15 +27,15 @@ const defaultStyles: Record<string, JSX.CSSProperties> = {
         color: '#000000',
         width: 'fit-content',
     },
-    [EDITABLE_ELEMENTS.CHAT_WRAPPER]: {
+    [EDITABLE_PARTS.CHAT_WRAPPER]: {
         'background-color': '#EBECF5',
         padding: '16px',
     },
-    [EDITABLE_ELEMENTS.SPEAKER_TEXT]: {
+    [EDITABLE_PARTS.SPEAKER_TEXT]: {
         'font-weight': '800',
         'font-size': '16px',
     },
-    [EDITABLE_ELEMENTS.TIME_TEXT]: {
+    [EDITABLE_PARTS.TIME_TEXT]: {
         'font-size': '14px',
         color: '#8E8E93',
     },
@@ -56,9 +56,9 @@ const speakerAvatarSignal = createSignal<JSX.CSSProperties>(
 const timeTextSignal = createSignal<JSX.CSSProperties>(defaultStyles.timeText)
 
 export const styleSignals = {
-    [EDITABLE_ELEMENTS.CHAT_WRAPPER]: chatWrapperSignal,
-    [EDITABLE_ELEMENTS.CHAT_BUBBLE]: chatBubbleSignal,
-    [EDITABLE_ELEMENTS.SPEAKER_TEXT]: speakerTextSignal,
-    [EDITABLE_ELEMENTS.SPEAKER_AVATAR]: speakerAvatarSignal,
-    [EDITABLE_ELEMENTS.TIME_TEXT]: timeTextSignal,
-} as Record<EDITABLE_ELEMENTS, Signal<JSX.CSSProperties>>
+    [EDITABLE_PARTS.CHAT_WRAPPER]: chatWrapperSignal,
+    [EDITABLE_PARTS.CHAT_BUBBLE]: chatBubbleSignal,
+    [EDITABLE_PARTS.SPEAKER_TEXT]: speakerTextSignal,
+    [EDITABLE_PARTS.SPEAKER_AVATAR]: speakerAvatarSignal,
+    [EDITABLE_PARTS.TIME_TEXT]: timeTextSignal,
+} as Record<EDITABLE_PARTS, Signal<JSX.CSSProperties>>

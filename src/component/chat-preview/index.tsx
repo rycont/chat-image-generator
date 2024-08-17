@@ -1,7 +1,7 @@
 import { chatContentsSignal } from '@storage/chat-contents.ts'
 import { speakersSignal } from '@service/speaker/storage.ts'
 import { For, Show } from 'solid-js'
-import { EDITABLE_ELEMENTS } from '@storage/style-control.ts'
+import { EDITABLE_PARTS } from '@storage/style-control.ts'
 import getAvatarImageURL from '@service/avatar/get-avatar-image-url.ts'
 import createStyleEditable from './create-style-editable.ts'
 import { previewWrapper } from './style.css.ts'
@@ -10,13 +10,13 @@ export default function ChatPreview() {
     const chatRecords = chatContentsSignal[0]
     const speakers = speakersSignal[0]
 
-    const wrapper = createStyleEditable(EDITABLE_ELEMENTS.CHAT_WRAPPER)
-    const chatBubble = createStyleEditable(EDITABLE_ELEMENTS.CHAT_BUBBLE)
-    const speakerText = createStyleEditable(EDITABLE_ELEMENTS.SPEAKER_TEXT)
+    const wrapper = createStyleEditable(EDITABLE_PARTS.CHAT_WRAPPER)
+    const chatBubble = createStyleEditable(EDITABLE_PARTS.CHAT_BUBBLE)
+    const speakerText = createStyleEditable(EDITABLE_PARTS.SPEAKER_TEXT)
     const speakerAvatarStyle = createStyleEditable(
-        EDITABLE_ELEMENTS.SPEAKER_AVATAR
+        EDITABLE_PARTS.SPEAKER_AVATAR
     )
-    const timeTextStyle = createStyleEditable(EDITABLE_ELEMENTS.TIME_TEXT)
+    const timeTextStyle = createStyleEditable(EDITABLE_PARTS.TIME_TEXT)
 
     return (
         <div {...wrapper} class={previewWrapper} data-fillx data-filly>
