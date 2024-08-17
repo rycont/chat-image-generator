@@ -103,7 +103,6 @@ export default function Dropdown(props: Props) {
             openSelector()
         } else {
             if (focusingIndex() === -1) {
-                console.log(addItemRef)
                 addItemRef.click()
 
                 return true
@@ -122,7 +121,8 @@ export default function Dropdown(props: Props) {
             )
             return true
         } else if (e.key === 'ArrowUp') {
-            setFocusingIndex(Math.max(focusingIndex() - 1, -1))
+            const minIndex = props.addItem ? -1 : 0
+            setFocusingIndex(Math.max(focusingIndex() - 1, minIndex))
             return true
         }
 
@@ -169,6 +169,7 @@ export default function Dropdown(props: Props) {
                                 [disappearStyle]: isClosing(),
                             }}
                             data-focused={focusingIndex() === -1 ? '' : null}
+                            onMouseEnter={setFocusingIndex.bind(null, -1)}
                         >
                             <Dynamic
                                 component={props.addItem}
@@ -188,9 +189,10 @@ export default function Dropdown(props: Props) {
                                 data-focused={
                                     index() === focusingIndex() ? '' : null
                                 }
-                                onMouseEnter={() =>
-                                    setFocusingIndex(props.items.indexOf(id))
-                                }
+                                onMouseEnter={setFocusingIndex.bind(
+                                    null,
+                                    index()
+                                )}
                             >
                                 <div class={contentAreaStyle}>
                                     <Dynamic
