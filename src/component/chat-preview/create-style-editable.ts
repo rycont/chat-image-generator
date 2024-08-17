@@ -1,4 +1,4 @@
-import { EDITABLE_PARTS, styleSignals } from '@storage/style-control'
+import { SIGNAL_NAME_LABEL_MAP, styleSignals } from '@storage/style-control'
 import { overlayStyle, smoothTransition } from './style.css'
 import { editingPartSignal } from '@storage/editing-part'
 
@@ -6,14 +6,6 @@ let hoveringStack: HTMLElement[] = []
 
 const OVERLAY_ID_ATTR = 'data-overlay-id'
 const OVERLAY_TEXT_ATTR = 'data-overlay-text'
-
-const SIGNAL_NAME_LABEL_MAP: Record<EDITABLE_PARTS, string> = {
-    chatWrapper: '배경',
-    chatBubble: '말풍선',
-    speakerText: '말 한 사람',
-    speakerAvatar: '프로필 사진',
-    timeText: '시간',
-}
 
 function createStyleEditable(name: keyof typeof styleSignals) {
     const signal = styleSignals[name]

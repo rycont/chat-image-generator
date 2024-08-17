@@ -62,3 +62,11 @@ export const styleSignals = {
     [EDITABLE_PARTS.SPEAKER_AVATAR]: speakerAvatarSignal,
     [EDITABLE_PARTS.TIME_TEXT]: timeTextSignal,
 } as Record<EDITABLE_PARTS, Signal<JSX.CSSProperties>>
+
+export const SIGNAL_NAME_LABEL_MAP: Record<EDITABLE_PARTS, string> = {
+    chatWrapper: '배경',
+    chatBubble: '말풍선',
+    speakerText: '말 한 사람',
+    speakerAvatar: '프로필 사진',
+    timeText: '시간',
+}
