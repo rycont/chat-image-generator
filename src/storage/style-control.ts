@@ -1,4 +1,4 @@
-import { createEffect, createSignal, JSX, Signal } from 'solid-js'
+import { createSignal, JSX, Signal } from 'solid-js'
 
 export enum EDITABLE_PARTS {
     CHAT_WRAPPER = 'chatWrapper',
@@ -32,6 +32,7 @@ const defaultStyles = {
     [EDITABLE_PARTS.CHAT_WRAPPER]: {
         'background-color': '#EBECF5',
         padding: '16',
+        gap: '20',
     },
     [EDITABLE_PARTS.SPEAKER_TEXT]: {
         'font-weight': '800',

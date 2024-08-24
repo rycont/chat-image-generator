@@ -3,6 +3,9 @@ import { keyframes, style } from '@vanilla-extract/css'
 
 export const previewWrapper = style({
     maxWidth: '90rem',
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'column',
     transition: vars.timing.ease,
 })
 

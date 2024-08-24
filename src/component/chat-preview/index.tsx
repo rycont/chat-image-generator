@@ -20,41 +20,34 @@ export default function ChatPreview() {
 
     return (
         <div {...wrapper()} class={previewWrapper} data-fillx data-filly>
-            <sh-vert gap={4}>
-                <For each={chatRecords()}>
-                    {(record) => (
-                        <sh-horz gap={2}>
-                            <Show
-                                when={speakers().get(record.speakerId!)?.avatar}
-                            >
-                                {(avatar) => (
-                                    <img
-                                        src={getAvatarImageURL(avatar())}
-                                        alt="avatar"
-                                        {...speakerAvatarStyle()}
-                                    />
-                                )}
-                            </Show>
-                            <sh-vert gap={2} data-fillx>
-                                <sh-horz gap={1} y="center">
-                                    <div {...speakerText()}>
-                                        {
-                                            speakers().get(record.speakerId!)
-                                                ?.name
-                                        }
+            <For each={chatRecords()}>
+                {(record) => (
+                    <sh-horz gap={2}>
+                        <Show when={speakers().get(record.speakerId!)?.avatar}>
+                            {(avatar) => (
+                                <img
+                                    src={getAvatarImageURL(avatar())}
+                                    alt="avatar"
+                                    {...speakerAvatarStyle()}
+                                />
+                            )}
+                        </Show>
+                        <sh-vert gap={2} data-fillx>
+                            <sh-horz gap={1} y="center">
+                                <div {...speakerText()}>
+                                    {speakers().get(record.speakerId!)?.name}
+                                </div>
+                                <Show when={record.time}>
+                                    <div {...timeTextStyle()}>
+                                        {record.time}
                                     </div>
-                                    <Show when={record.time}>
-                                        <div {...timeTextStyle()}>
-                                            {record.time}
-                                        </div>
-                                    </Show>
-                                </sh-horz>
-                                <div {...chatBubble()}>{record.content}</div>
-                            </sh-vert>
-                        </sh-horz>
-                    )}
-                </For>
-            </sh-vert>
+                                </Show>
+                            </sh-horz>
+                            <div {...chatBubble()}>{record.content}</div>
+                        </sh-vert>
+                    </sh-horz>
+                )}
+            </For>
         </div>
     )
 }

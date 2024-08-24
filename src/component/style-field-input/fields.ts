@@ -78,6 +78,10 @@ export const STYLE_FIELDS: Record<string, StyleField> = {
             '900',
         ]),
     },
+    gap: {
+        label: '간격',
+        type: StylePropertyType.NUMBER,
+    },
 }
 
 function createDatalist(options: string[]) {
