@@ -7,6 +7,7 @@ export const panelWrapperStyle = style({
     display: 'flex',
     gap: '8rem',
     alignItems: 'flex-start',
+    flexGrow: 1,
     '@media': {
         [`(max-width: ${VERTICAL_LAYOUT_THRESHOLD})`]: {
             flexDirection: 'column',
