@@ -13,6 +13,7 @@ export default async function saveChatImage() {
 
     saveFile(`chat.png`, imageLink)
     await copyToClipboard(imageLink)
+    alert('이미지가 클립보드에 복사되었습니다.')
 }
 
 function saveFile(filename: string, link: string) {
