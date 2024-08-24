@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vanilla-extract/css": "^1.15.3",
+    "html-to-image": "^1.11.11",
     "solid-js": "^1.8.19"
   },
   "devDependencies": {

@@ -6,6 +6,8 @@ import getAvatarImageURL from '@service/avatar/get-avatar-image-url.ts'
 import createStyleEditable from './create-style-editable.ts'
 import { previewWrapper } from './style.css.ts'
 
+export let chatPreviewElementRef!: HTMLDivElement
+
 export default function ChatPreview() {
     const chatRecords = chatContentsSignal[0]
     const speakers = speakersSignal[0]
@@ -19,7 +21,13 @@ export default function ChatPreview() {
     const timeTextStyle = createStyleEditable(EDITABLE_PARTS.TIME_TEXT)
 
     return (
-        <div {...wrapper()} class={previewWrapper} data-fillx data-filly>
+        <div
+            {...wrapper()}
+            class={previewWrapper}
+            data-fillx
+            data-filly
+            ref={chatPreviewElementRef}
+        >
             <For each={chatRecords()}>
                 {(record) => (
                     <sh-horz gap={2}>
