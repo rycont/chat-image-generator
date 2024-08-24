@@ -1,13 +1,14 @@
+import { Show } from 'solid-js'
+
 import Dropdown from '@component/dropdown'
 import {
     openAddSpeakerModal,
     openEditSpeakerModal,
 } from '@component/speaker-modal'
-
-import { chatContentsSignal } from '@storage/chat-contents'
-import { speakersSignal } from '@service/speaker/storage'
-import { createEffect, Show } from 'solid-js'
 import getAvatarImageURL from '@service/avatar/get-avatar-image-url'
+import { speakersSignal } from '@service/speaker/storage'
+import { chatContentsSignal } from '@storage/chat-contents'
+
 import { speakerDropdownAvatarImage } from './style.css'
 
 interface Props {
