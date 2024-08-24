@@ -99,7 +99,7 @@ function SpeakerModal(props: Props) {
                 class={popAppearProgressiveStyle}
             >
                 <img src={listAddIcon} alt="참여자 추가하기 아이콘" />
-                추가하기
+                {props.previousRecord ? '수정하기' : '추가하기'}
             </sh-button>
         </sh-vert>
     )
