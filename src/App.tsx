@@ -8,12 +8,7 @@ function App() {
         <>
             <Titlebar />
             <ModalPlaceholder />
-            <sh-horz
-                gap={8}
-                style={{
-                    flex: 1,
-                }}
-            >
+            <sh-horz gap={8} attr:y="top">
                 <ChatPreview />
                 <EditPanel />
             </sh-horz>

@@ -24,7 +24,6 @@ export default function Titlebar() {
                     <img src={editIcon} alt="edit icon" />
                     {getEditPanelSwitchText()}
                 </sh-button>
-                <SaveImageButton type="svg">SVG로 저장하기</SaveImageButton>
                 <SaveImageButton type="png">이미지로 저장하기</SaveImageButton>
             </sh-horz>
         </sh-horz>

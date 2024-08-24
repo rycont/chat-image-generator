@@ -8,7 +8,7 @@ function StyleEditPanel() {
     return (
         <Switch
             fallback={
-                <sh-vert>
+                <sh-vert data-fillx>
                     <sh-text>왼쪽 화면에서 수정할 부분을 선택해주세요</sh-text>
                 </sh-vert>
             }

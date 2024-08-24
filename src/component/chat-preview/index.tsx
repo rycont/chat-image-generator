@@ -4,7 +4,7 @@ import { For, Show } from 'solid-js'
 import { EDITABLE_PARTS } from '@storage/style-control.ts'
 import getAvatarImageURL from '@service/avatar/get-avatar-image-url.ts'
 import createStyleEditable from './create-style-editable.ts'
-import { previewWrapper } from './style.css.ts'
+import { previewWrapper, speakerAvatarStyle } from './style.css.ts'
 
 export let chatPreviewElementRef!: HTMLDivElement
 
@@ -15,19 +15,11 @@ export default function ChatPreview() {
     const wrapper = createStyleEditable(EDITABLE_PARTS.CHAT_WRAPPER)
     const chatBubble = createStyleEditable(EDITABLE_PARTS.CHAT_BUBBLE)
     const speakerText = createStyleEditable(EDITABLE_PARTS.SPEAKER_TEXT)
-    const speakerAvatarStyle = createStyleEditable(
-        EDITABLE_PARTS.SPEAKER_AVATAR
-    )
-    const timeTextStyle = createStyleEditable(EDITABLE_PARTS.TIME_TEXT)
+    const speakerAvatar = createStyleEditable(EDITABLE_PARTS.SPEAKER_AVATAR)
+    const timeText = createStyleEditable(EDITABLE_PARTS.TIME_TEXT)
 
     return (
-        <div
-            {...wrapper()}
-            class={previewWrapper}
-            data-fillx
-            data-filly
-            ref={chatPreviewElementRef}
-        >
+        <div {...wrapper()} class={previewWrapper} ref={chatPreviewElementRef}>
             <For each={chatRecords()}>
                 {(record) => (
                     <sh-horz gap={2}>
@@ -36,7 +28,8 @@ export default function ChatPreview() {
                                 <img
                                     src={getAvatarImageURL(avatar())}
                                     alt="avatar"
-                                    {...speakerAvatarStyle()}
+                                    {...speakerAvatar()}
+                                    class={speakerAvatarStyle}
                                 />
                             )}
                         </Show>
@@ -46,9 +39,7 @@ export default function ChatPreview() {
                                     {speakers().get(record.speakerId!)?.name}
                                 </div>
                                 <Show when={record.time}>
-                                    <div {...timeTextStyle()}>
-                                        {record.time}
-                                    </div>
+                                    <div {...timeText()}>{record.time}</div>
                                 </Show>
                             </sh-horz>
                             <div {...chatBubble()}>{record.content}</div>

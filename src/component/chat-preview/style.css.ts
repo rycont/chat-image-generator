@@ -2,7 +2,7 @@ import { vars } from '@shade/theme.css'
 import { keyframes, style } from '@vanilla-extract/css'
 
 export const previewWrapper = style({
-    maxWidth: '90rem',
+    width: '100rem',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
@@ -42,4 +42,8 @@ export const overlayStyle = style({
             width: 'max-content',
         },
     },
+})
+
+export const speakerAvatarStyle = style({
+    objectFit: 'cover',
 })
