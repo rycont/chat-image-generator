@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css'
 
+const MODAL_POSITION_THRESHOLD = 720
+
 export const backdropStyle = style({
     position: 'fixed',
     top: 0,
@@ -13,6 +15,12 @@ export const backdropStyle = style({
     zIndex: 2,
     padding: '4rem',
     boxSizing: 'border-box',
+    '@media': {
+        [`(max-width: ${MODAL_POSITION_THRESHOLD}px)`]: {
+            padding: '0rem',
+            alignItems: 'flex-end',
+        },
+    },
 })
 
 export const modalWrapperStyle = style({
@@ -24,4 +32,10 @@ export const modalWrapperStyle = style({
     gap: '6rem',
     maxWidth: '120rem',
     width: '100%',
+    '@media': {
+        [`(max-width: ${MODAL_POSITION_THRESHOLD}px)`]: {
+            borderBottomLeftRadius: '0',
+            borderBottomRightRadius: '0',
+        },
+    },
 })
