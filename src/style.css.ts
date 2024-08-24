@@ -32,7 +32,7 @@ globalStyle('body', {
 globalStyle(':root', {
     '@media': {
         [`(max-width: ${SMALL_TEXT_THRESHOLD})`]: {
-            fontSize: '3.6px',
+            fontSize: '3.4px',
         },
     },
 })
