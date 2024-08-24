@@ -1,6 +1,7 @@
 import { globalStyle, style } from '@vanilla-extract/css'
 
 const VERTICAL_LAYOUT_THRESHOLD = '960px'
+const SMALL_TEXT_THRESHOLD = '480px'
 
 export const panelWrapperStyle = style({
     display: 'flex',
@@ -22,6 +23,14 @@ globalStyle('body', {
     '@media': {
         [`(max-width: ${VERTICAL_LAYOUT_THRESHOLD})`]: {
             padding: '8rem 4rem',
+        },
+    },
+})
+
+globalStyle(':root', {
+    '@media': {
+        [`(max-width: ${SMALL_TEXT_THRESHOLD})`]: {
+            fontSize: '3.6px',
         },
     },
 })

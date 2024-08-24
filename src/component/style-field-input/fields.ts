@@ -31,7 +31,7 @@ export const STYLE_FIELDS: Record<string, StyleField> = {
         type: StylePropertyType.NUMBER,
     },
     padding: {
-        label: '여백',
+        label: '가장자리 여백',
         type: StylePropertyType.NUMBER,
     },
     'border-width': {
