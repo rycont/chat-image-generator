@@ -1,16 +1,22 @@
-import { SIGNAL_NAME_LABEL_MAP, styleSignals } from '@storage/style-control'
+import {
+    EDITABLE_PARTS,
+    SIGNAL_NAME_LABEL_MAP,
+    StringStyleSheet,
+    styleSignals,
+} from '@storage/style-control'
 import { overlayStyle, smoothTransition } from './style.css'
 import { editingPartSignal } from '@storage/editing-part'
+import { FIELD_TYPES, STYLE_FIELDS } from '@component/style-field-input/fields'
 
 let hoveringStack: HTMLElement[] = []
 
 const OVERLAY_ID_ATTR = 'data-overlay-id'
 const OVERLAY_TEXT_ATTR = 'data-overlay-text'
 
-function createStyleEditable(name: keyof typeof styleSignals) {
+function createStyleEditable(name: EDITABLE_PARTS) {
     const signal = styleSignals[name]
 
-    return {
+    return () => ({
         onMouseEnter: (e: MouseEvent) => {
             const thisTarget = e.target
 
@@ -49,11 +55,22 @@ function createStyleEditable(name: keyof typeof styleSignals) {
             editingPartSignal[1](name)
         },
         style: {
-            ...signal[0](),
+            ...parseStringStyleSheet(signal[0]()),
         },
         class: smoothTransition,
         [OVERLAY_TEXT_ATTR]: SIGNAL_NAME_LABEL_MAP[name],
-    }
+    })
+}
+
+function parseStringStyleSheet(style: StringStyleSheet) {
+    const parsed = Object.fromEntries(
+        Object.entries(style).map(([key, value]) => [
+            key,
+            FIELD_TYPES[STYLE_FIELDS[key].type].toStyleValue(value!),
+        ])
+    )
+
+    return parsed
 }
 
 function drawOverlay(target: HTMLElement) {

@@ -1,5 +1,4 @@
 import { editingPartSignal } from '@storage/editing-part'
-import { styleSignals } from '@storage/style-control'
 import { Match, Switch } from 'solid-js'
 import StyleEditor from './style-editor'
 
@@ -15,7 +14,7 @@ function StyleEditPanel() {
             }
         >
             <Match when={getEditingPart()}>
-                {(editingPart) => <StyleEditor editingPart={editingPart()} />}
+                <StyleEditor />
             </Match>
         </Switch>
     )

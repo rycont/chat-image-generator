@@ -19,7 +19,7 @@ export default function ChatPreview() {
     const timeTextStyle = createStyleEditable(EDITABLE_PARTS.TIME_TEXT)
 
     return (
-        <div {...wrapper} class={previewWrapper} data-fillx data-filly>
+        <div {...wrapper()} class={previewWrapper} data-fillx data-filly>
             <sh-vert gap={4}>
                 <For each={chatRecords()}>
                     {(record) => (
@@ -31,25 +31,25 @@ export default function ChatPreview() {
                                     <img
                                         src={getAvatarImageURL(avatar())}
                                         alt="avatar"
-                                        {...speakerAvatarStyle}
+                                        {...speakerAvatarStyle()}
                                     />
                                 )}
                             </Show>
                             <sh-vert gap={2} data-fillx>
                                 <sh-horz gap={1} y="center">
-                                    <div {...speakerText}>
+                                    <div {...speakerText()}>
                                         {
                                             speakers().get(record.speakerId!)
                                                 ?.name
                                         }
                                     </div>
                                     <Show when={record.time}>
-                                        <div {...timeTextStyle}>
+                                        <div {...timeTextStyle()}>
                                             {record.time}
                                         </div>
                                     </Show>
                                 </sh-horz>
-                                <div {...chatBubble}>{record.content}</div>
+                                <div {...chatBubble()}>{record.content}</div>
                             </sh-vert>
                         </sh-horz>
                     )}
