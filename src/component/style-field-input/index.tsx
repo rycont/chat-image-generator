@@ -1,10 +1,5 @@
 import { Show } from 'solid-js'
-import {
-    FIELD_TYPES,
-    STYLE_FIELDS,
-    StyleField,
-    StylePropertyType,
-} from './fields'
+import { FIELD_TYPES, STYLE_FIELDS } from './fields'
 import { popAppearProgressiveStyle } from '@shade/theme.css'
 
 interface Props {

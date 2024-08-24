@@ -12,7 +12,7 @@ export default function SaveImageButton(props: Props) {
 
     async function onClick() {
         setIsLoading(true)
-        await saveChatImage(props.type)
+        await saveChatImage()
         setIsLoading(null)
     }
 
