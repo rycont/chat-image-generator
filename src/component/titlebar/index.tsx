@@ -15,7 +15,14 @@ export default function Titlebar() {
 
     return (
         <sh-horz x="space" linebreak gap={4}>
-            <sh-title>채팅 이미지 생성기</sh-title>
+            <sh-vert y="bottom" gap={2}>
+                <sh-title>채팅 이미지 생성기</sh-title>
+                <sh-token>
+                    <a href="https://github.com/rycont/chat-image-generator">
+                        GitHub에서 소스코드 보기
+                    </a>
+                </sh-token>
+            </sh-vert>
 
             <sh-horz gap={2} linebreak>
                 <sh-button type="ghost" onClick={switchEditPanel}>
