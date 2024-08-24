@@ -12,6 +12,7 @@ export const panelWrapperStyle = style({
             flexDirection: 'column',
             alignItems: 'stretch',
             overflowX: 'scroll',
+            overflowY: 'visible',
         },
     },
 })
