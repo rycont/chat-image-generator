@@ -1,7 +1,5 @@
 import editIcon from '@shade/icons/Pen.svg'
 
-import saveChatImage from '@service/save-chat-image'
-
 import { currentEditPanelSignal, EDIT_PANEL } from '@storage/current-edit-panel'
 import { editingPartSignal } from '@storage/editing-part'
 import SaveImageButton from './save-image-button'
@@ -16,10 +14,10 @@ export default function Titlebar() {
             : '내용 바꾸기'
 
     return (
-        <sh-horz x="space">
+        <sh-horz x="space" linebreak gap={4}>
             <sh-title>채팅 이미지 생성기</sh-title>
 
-            <sh-horz gap={2}>
+            <sh-horz gap={2} linebreak>
                 <sh-button type="ghost" onClick={switchEditPanel}>
                     <img src={editIcon} alt="edit icon" />
                     {getEditPanelSwitchText()}

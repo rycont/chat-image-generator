@@ -2,10 +2,10 @@ import { vars } from '@shade/theme.css'
 import { keyframes, style } from '@vanilla-extract/css'
 
 export const previewWrapper = style({
-    width: '100rem',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
+    width: '100rem',
     transition: vars.timing.ease,
 })
 
@@ -14,7 +14,7 @@ export const smoothTransition = style({
 })
 
 export const overlayStyle = style({
-    position: 'fixed',
+    position: 'absolute',
     pointerEvents: 'none',
     boxShadow: `0 0 0 0.5rem ${vars.color.orange}`,
     padding: '1rem',
@@ -46,4 +46,9 @@ export const overlayStyle = style({
 
 export const speakerAvatarStyle = style({
     objectFit: 'cover',
+})
+
+export const scrollWrapper = style({
+    maxWidth: '100%',
+    overflowX: 'scroll',
 })

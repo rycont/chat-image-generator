@@ -4,7 +4,11 @@ import { For, Show } from 'solid-js'
 import { EDITABLE_PARTS } from '@storage/style-control.ts'
 import getAvatarImageURL from '@service/avatar/get-avatar-image-url.ts'
 import createStyleEditable from './create-style-editable.ts'
-import { previewWrapper, speakerAvatarStyle } from './style.css.ts'
+import {
+    previewWrapper,
+    scrollWrapper,
+    speakerAvatarStyle,
+} from './style.css.ts'
 
 export let chatPreviewElementRef!: HTMLDivElement
 
@@ -19,34 +23,45 @@ export default function ChatPreview() {
     const timeText = createStyleEditable(EDITABLE_PARTS.TIME_TEXT)
 
     return (
-        <div {...wrapper()} class={previewWrapper} ref={chatPreviewElementRef}>
-            <For each={chatRecords()}>
-                {(record) => (
-                    <sh-horz gap={2}>
-                        <Show when={speakers().get(record.speakerId!)?.avatar}>
-                            {(avatar) => (
-                                <img
-                                    src={getAvatarImageURL(avatar())}
-                                    alt="avatar"
-                                    {...speakerAvatar()}
-                                    class={speakerAvatarStyle}
-                                />
-                            )}
-                        </Show>
-                        <sh-vert gap={2} data-fillx>
-                            <sh-horz gap={1} y="center">
-                                <div {...speakerText()}>
-                                    {speakers().get(record.speakerId!)?.name}
-                                </div>
-                                <Show when={record.time}>
-                                    <div {...timeText()}>{record.time}</div>
-                                </Show>
-                            </sh-horz>
-                            <div {...chatBubble()}>{record.content}</div>
-                        </sh-vert>
-                    </sh-horz>
-                )}
-            </For>
+        <div class={scrollWrapper}>
+            <div
+                {...wrapper()}
+                class={previewWrapper}
+                ref={chatPreviewElementRef}
+            >
+                <For each={chatRecords()}>
+                    {(record) => (
+                        <sh-horz gap={2}>
+                            <Show
+                                when={speakers().get(record.speakerId!)?.avatar}
+                            >
+                                {(avatar) => (
+                                    <img
+                                        src={getAvatarImageURL(avatar())}
+                                        alt="avatar"
+                                        {...speakerAvatar()}
+                                        class={speakerAvatarStyle}
+                                    />
+                                )}
+                            </Show>
+                            <sh-vert gap={2} data-fillx>
+                                <sh-horz gap={1} y="center">
+                                    <div {...speakerText()}>
+                                        {
+                                            speakers().get(record.speakerId!)
+                                                ?.name
+                                        }
+                                    </div>
+                                    <Show when={record.time}>
+                                        <div {...timeText()}>{record.time}</div>
+                                    </Show>
+                                </sh-horz>
+                                <div {...chatBubble()}>{record.content}</div>
+                            </sh-vert>
+                        </sh-horz>
+                    )}
+                </For>
+            </div>
         </div>
     )
 }

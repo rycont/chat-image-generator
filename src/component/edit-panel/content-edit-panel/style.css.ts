@@ -54,4 +54,10 @@ globalStyle(`.${tableRowStyle} th`, {
 export const chatListTable = style({
     margin: '-3rem',
     width: '100%',
+    minWidth: '150rem',
+})
+
+export const tableWrapper = style({
+    overflowX: 'auto',
+    maxWidth: '100%',
 })

@@ -24,7 +24,7 @@ export default function StyleFieldInput(props: Props) {
                     <sh-input
                         attr:value={props.value}
                         attr:type={FIELD_TYPES[field().type].type}
-                        attr:list={parseDatalist(field())}
+                        attr:list={field().datalistId || null}
                         onInput={(e) =>
                             props.onChange(props.property, e.target.value)
                         }
@@ -33,12 +33,4 @@ export default function StyleFieldInput(props: Props) {
             )}
         </Show>
     )
-}
-
-function parseDatalist(field: StyleField) {
-    if (field.type === StylePropertyType.SELECT) {
-        return field.datalistId
-    }
-
-    return null
 }

@@ -8,18 +8,10 @@ export enum StylePropertyType {
 interface StyleFieldBase {
     label: string
     type: StylePropertyType
+    datalistId?: string
 }
 
-interface SelectStyleField extends StyleFieldBase {
-    type: StylePropertyType.SELECT
-    datalistId: string
-}
-
-interface OtherStyleField extends StyleFieldBase {
-    type: Exclude<StylePropertyType, StylePropertyType.SELECT>
-}
-
-export type StyleField = SelectStyleField | OtherStyleField
+export type StyleField = StyleFieldBase
 
 export const STYLE_FIELDS: Record<string, StyleField> = {
     'background-color': {
@@ -58,6 +50,7 @@ export const STYLE_FIELDS: Record<string, StyleField> = {
     width: {
         label: '너비',
         type: StylePropertyType.GEOMETRIC_SIZE,
+        datalistId: createDatalist(['fit-content', 'max-content', '채우기']),
     },
     height: {
         label: '높이',

@@ -4,14 +4,14 @@ import { For } from 'solid-js'
 import TableRecord from './table-record'
 import AddNewRecord from './add-new-record'
 
-import { chatListTable, tableRowStyle } from './style.css'
+import { chatListTable, tableRowStyle, tableWrapper } from './style.css'
 
 export default function ContentEditor() {
     const chatRecords = chatContentsSignal[0]
     const lengthedArray = () => Array.from({ length: chatRecords().length })
 
     return (
-        <div data-fillx>
+        <div data-fillx class={tableWrapper}>
             <table class={chatListTable}>
                 <thead>
                     <tr class={tableRowStyle}>
