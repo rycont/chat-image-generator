@@ -1,6 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css'
 
-const VERTICAL_LAYOUT_THRESHOLD = '960px'
+const VERTICAL_LAYOUT_THRESHOLD = '1090px'
 const SMALL_TEXT_THRESHOLD = '480px'
 
 export const panelWrapperStyle = style({
@@ -11,6 +11,7 @@ export const panelWrapperStyle = style({
         [`(max-width: ${VERTICAL_LAYOUT_THRESHOLD})`]: {
             flexDirection: 'column',
             alignItems: 'stretch',
+            overflowX: 'scroll',
         },
     },
 })

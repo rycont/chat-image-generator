@@ -32,7 +32,7 @@ globalStyle(
 )
 
 globalStyle(`.${tableRowStyle} th:last-child`, {
-    width: '30rem',
+    width: '20rem',
 })
 
 globalStyle(`.${tableRowStyle} th:first-child`, {
@@ -58,6 +58,7 @@ export const chatListTable = style({
 })
 
 export const tableWrapper = style({
-    overflowX: 'auto',
-    maxWidth: '100%',
+    // overflowX: 'auto',
+    // maxWidth: '100%',
+    width: 'fit-content',
 })

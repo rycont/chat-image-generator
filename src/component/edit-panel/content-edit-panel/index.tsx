@@ -11,7 +11,7 @@ export default function ContentEditor() {
     const lengthedArray = () => Array.from({ length: chatRecords().length })
 
     return (
-        <div data-fillx class={tableWrapper}>
+        <div class={tableWrapper} data-fillx>
             <table class={chatListTable}>
                 <thead>
                     <tr class={tableRowStyle}>

@@ -48,7 +48,3 @@ export const speakerAvatarStyle = style({
     objectFit: 'cover',
 })
 
-export const scrollWrapper = style({
-    maxWidth: '100%',
-    overflowX: 'scroll',
-})
